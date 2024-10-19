@@ -19,14 +19,14 @@ import cv2
 import shutil
 import random
 
-drive.mount('/content/gdrive')
+#drive.mount('/content/gdrive')
 
 # Chemin vers le dossier contenant les classes
-folders = "/content/gdrive/MyDrive/SegmentationDePokemons"
+folders = "."
 
 # Dossiers pour les ensembles d'entraînement et de test
-train_folder = "/content/gdrive/MyDrive/SegmentationDePokemons/train"
-test_folder = "/content/gdrive/MyDrive/SegmentationDePokemons/test"
+train_folder = "./train"
+test_folder = "./test"
 
 # Créer les dossiers s'ils n'existent pas déjà
 os.makedirs(train_folder, exist_ok=True)
@@ -109,7 +109,7 @@ model.summary()
 # Créer des générateurs d'images pour l'entraînement
 train_datagen = ImageDataGenerator(rescale=1./255)
 train_generator = train_datagen.flow_from_directory(
-    '/content/gdrive/MyDrive/SegmentationDePokemons/train',
+    './SegmentationDePokemons/train',
     target_size=(200,200),
     batch_size=32,
     class_mode='categorical'
@@ -118,7 +118,7 @@ train_generator = train_datagen.flow_from_directory(
 # Entraîner le modèle
 model.fit(train_generator, epochs=3)
 
-model.save("/content/gdrive/MyDrive/SegmentationDePokemons/classification_images_classiques.h5")
+model.save("./SegmentationDePokemons/classification_images_classiques.h5")
 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.metrics import classification_report, confusion_matrix
@@ -129,7 +129,7 @@ img_size = (200, 200, 3)
 # Créer des générateurs d'images pour l'ensemble de test
 test_datagen = ImageDataGenerator(rescale=1./255)
 test_generator = test_datagen.flow_from_directory(
-    '/content/gdrive/MyDrive/SegmentationDePokemons/test',
+    './SegmentationDePokemons/test',
     target_size=(200, 200),
     batch_size=32,
     class_mode='categorical',
@@ -261,7 +261,7 @@ train_generator = train_datagen.flow_from_directory(
 # Entraîner le modèle
 model.fit(train_generator, epochs=6)
 
-model.save("/content/gdrive/MyDrive/SegmentationDePokemons/classification_segmentees_unet_global.h5")
+model.save("./SegmentationDePokemons/classification_segmentees_unet_global.h5")
 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.metrics import classification_report, confusion_matrix
@@ -323,7 +323,7 @@ train_generator = train_datagen.flow_from_directory(
 # Entraîner le modèle
 model.fit(train_generator, epochs=6)
 
-model.save("/content/gdrive/MyDrive/SegmentationDePokemons/classification_segmentees_unet_specialise.h5")
+model.save("./SegmentationDePokemons/classification_segmentees_unet_specialise.h5")
 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.metrics import classification_report, confusion_matrix
@@ -396,7 +396,7 @@ from tensorflow.keras.callbacks import ModelCheckpoint
 
 drive.mount('/content/gdrive')
 
-ex_folder = "/content/gdrive/MyDrive/SegmentationDePokemons"
+ex_folder = "./SegmentationDePokemons"
 parent_folder = "/content/gdrive/Shareddrives/SegmentationdePokemons/Pokemons"
 
 pokemon_list = ['Pikachu', 'Charizard', 'Bulbasaur', 'Alakazam', 'Blastoise', 'Eevee', 'Gyarados', 'Jigglypuff', 'Lapras', 'Mew']
